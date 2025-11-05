@@ -10,6 +10,9 @@ if [ -n "$DATABASE_URL" ]; then
   sleep 1
 fi
 
+echo "Creating migrations if needed"
+python manage.py makemigrations --noinput || true
+
 echo "Running migrations"
 python manage.py migrate --noinput
 

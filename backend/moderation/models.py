@@ -10,7 +10,6 @@ class Report(models.Model):
     """Model for reporting inappropriate posts/comments"""
     
     id = models.AutoField(primary_key=True)  # Explicit primary key
-    
     REASON_CHOICES = [
         ('spam', 'Spam'),
         ('harassment', 'Harassment'),
