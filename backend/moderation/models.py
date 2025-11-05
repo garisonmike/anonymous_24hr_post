@@ -1,4 +1,4 @@
- """
+"""
 Models for content moderation and reporting
 """
 from django.db import models

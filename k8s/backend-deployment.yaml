@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anonymous-backend
+  labels:
+    app: anonymous-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: anonymous-backend
+  template:
+    metadata:
+      labels:
+        app: anonymous-backend
+    spec:
+      containers:
+        - name: backend
+          image: ghcr.io/yourorg/anonymous-backend:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - secretRef:
+                name: anonymous-secrets
+          readinessProbe:
+            httpGet:
+              path: /api/health/
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health/
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 30
